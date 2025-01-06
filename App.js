@@ -1,32 +1,44 @@
 import React, {useState} from 'react';
 import {
   StyleSheet,
-  TextInput,
   View,
-  Text
+  Text,
+  //ScrollView,
+  FlatList
+
 } from 'react-native';
 
 export default function App() {
-  const [name, setName] = useState('Bulgan');
-  const [age, setAge] = useState('20');  
+  const [people, setPeople] = useState([
+    {name: 'boldoo', id: '1'},
+    {name: 'tsetsgee', id: '2'},
+    {name: 'dorj', id: '3'},
+    {name: 'bat', id: '4'},
+    {name: 'baldan', id: '5'},
+    {name: 'dulam', id: '6'},
+    {name: 'dondog', id: '7'},
+  ]);
 
 
   return (
     <View style={styles.container}>
-      <Text style={styles.sign}>This is sign up form</Text>
-      <Text> Enter name:</Text>
-      <TextInput 
-      multiline
-      style={styles.inputBox}
-      placeholder='e.g. John Doe'
-      onChangeText={(val) => setName(val)} />
-      <Text> Enter age:</Text>
-      <TextInput 
-      style={styles.inputBox}
-      keyboardType='numeric'
-      placeholder='e.g. 99'
-      onChangeText={(val) => setAge(val)} />
-      <Text>name:{name} age: {age}</Text>
+      <FlatList
+        numColumns={2}
+        keyExtractor={(item)=> item.id} 
+        data={people}
+        renderItem={({item})=>(
+            <Text style ={styles.item}>{item.name}</Text>
+       )}
+      />
+      {/* <ScrollView>
+      {people.map((item)=> {
+        return(
+          <View id={item.id}>
+            <Text style ={styles.item}>{item.name}</Text>
+          </View>
+        )
+      })}
+      </ScrollView> */}
     </View>
   );
 }
@@ -35,22 +47,16 @@ const styles = StyleSheet.create({
   container: {
     flex: 1, 
     backgroundColor: 'white',
-    alignItems: 'center',
-    justifyContent: 'center', 
+    paddingTop: 40,
+    paddingHorizontal: 20, 
   },
-  inputBox:{
-    borderWidth: 1,
-    borderColor: '#777',
-    padding: 8,
-    margin: 10,
-    width: 200,
-    color: '#777',
-  },
-  sign: {
-    margin:50,
-    color: 'black',
+  item: {
+  marginTop: 24,
+  padding: 30,
+  backgroundColor:'pink',
+  fontSize: 24,
+  marginHorizontal: 10
   }
-
 });
 
 

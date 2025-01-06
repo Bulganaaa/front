@@ -4,30 +4,41 @@ import {
   View,
   Text,
   //ScrollView,
-  FlatList
+  FlatList,
+  TouchableOpacity
 
 } from 'react-native';
 
-export default function App() {
+ export default function App() {
   const [people, setPeople] = useState([
     {name: 'boldoo', id: '1'},
     {name: 'tsetsgee', id: '2'},
-    {name: 'dorj', id: '3'},
+    {name: 'dorj', id: '3'},  
     {name: 'bat', id: '4'},
     {name: 'baldan', id: '5'},
     {name: 'dulam', id: '6'},
     {name: 'dondog', id: '7'},
   ]);
 
+  const pressHandler = (id) => {
+      console.log(id);
+      setPeople((prevPeople) =>  {
+        return prevPeople.filter(person => person.id != id);
+      });
+  }
+
 
   return (
     <View style={styles.container}>
+
       <FlatList
         numColumns={2}
         keyExtractor={(item)=> item.id} 
         data={people}
         renderItem={({item})=>(
-            <Text style ={styles.item}>{item.name}</Text>
+            <TouchableOpacity  onPress={() => pressHandler(item.id)}>
+              <Text style ={styles.item}>{item.name}</Text>
+            </TouchableOpacity>   
        )}
       />
       {/* <ScrollView>
@@ -55,8 +66,9 @@ const styles = StyleSheet.create({
   padding: 30,
   backgroundColor:'pink',
   fontSize: 24,
-  marginHorizontal: 10
+  marginHorizontal: 15
   }
 });
+
 
 
